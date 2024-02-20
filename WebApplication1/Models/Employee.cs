@@ -19,5 +19,8 @@ namespace WebApplication1.Models
         [Required]
         public Dept? Department { get; set; }
 
+        public SubDept? SubDepartment { get; set; }
+
+
     }
 }

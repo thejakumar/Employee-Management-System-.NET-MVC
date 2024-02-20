@@ -1,3 +1,4 @@
+using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using System.Diagnostics;
@@ -58,6 +59,37 @@ namespace WebApplication1.Controllers
 
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetSubDepartments(Dept department)
+        {
+            var subDepartments = GetSubDepartmentsForDepartment(department);
+            return Json(subDepartments);
+        }
+
+        private List<string> GetSubDepartmentsForDepartment(Dept department)
+        {
+            List<string> subDepartments = new List<string>();
+
+            // Define sub-departments based on the selected department
+            switch (department)
+            {
+                case Dept.HR:
+                    subDepartments.Add(SubDept.SubDeptHR1.ToString());
+                    subDepartments.Add(SubDept.SubDeptHR2.ToString());
+                    break;
+                case Dept.IT:
+                    subDepartments.Add(SubDept.SubDeptIT1.ToString());
+                    subDepartments.Add(SubDept.SubDeptIT2.ToString());
+                    break;
+                // Define sub-departments for other departments as needed
+                default:
+                    subDepartments.Add(SubDept.None.ToString());
+                    break;
+            }
+
+            return subDepartments;
         }
     }
 }

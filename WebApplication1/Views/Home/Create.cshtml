@@ -3,7 +3,6 @@
 @inject IEmployeeRepository _employeeRepository
 @{
     ViewBag.Title = "Create Employee";
-
 }
 
 <form asp-controller="Home" asp-action="Create" method="post">
@@ -22,16 +21,28 @@
         </div>
     </div>
     <div class="form-group row">
-        <label asp-for="Department" class="col-sm-2 col-form-label"></label>
+        <label asp-for="Department" class="col-sm-2 col-form-label">Department</label>
         <div class="col-sm-10">
-            <select asp-for="Department" class="form-control"
-                    asp-items="Html.GetEnumSelectList<Dept>()">
+            <select id="parentSelect" asp-for="Department" class="form-control">
                 <option value="">Please Select</option>
-                    </select>
-
+                @foreach (var department in Enum.GetValues(typeof(Dept)))
+                {
+                    <option value="@department">@department</option>
+                }
+            </select>
             <span asp-validation-for="Department" class="text-danger"></span>
         </div>
     </div>
+    <div class="form-group row">
+        <label asp-for="SubDepartment" class="col-sm-2 col-form-label">Sub Department</label>
+        <div class="col-sm-10">
+            <select id="childSelect" asp-for="SubDepartment" class="form-control">
+                <option value="">Please Select</option>
+            </select>
+            <span asp-validation-for="SubDepartment" class="text-danger"></span>
+        </div>
+    </div>
+
     <div asp-validation-summary="All" class="text-danger"></div>
 
     <div class="form-group row">
@@ -46,3 +57,26 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#parentSelect').change(function () {
+                var selectedDepartment = $(this).val();
+                $.ajax({
+                    url: '/Home/GetSubDepartments',
+                    type: 'GET',
+                    data: { department: selectedDepartment },
+                    success: function (data) {
+                        var childSelect = $('#childSelect');
+                        childSelect.empty();
+                        $.each(data, function (index, subDepartment) {
+                            // Append an option with the value and text being the same
+                            childSelect.append($('<option></option>').val(subDepartment).text(subDepartment));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
