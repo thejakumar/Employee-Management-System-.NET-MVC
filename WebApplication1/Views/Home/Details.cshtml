@@ -42,9 +42,10 @@
     </body>
 </html> *@
 
-@* @model WebApplication1.ViewModels.HomeDetailsViewModel
- *@@{
+@model WebApplication1.ViewModels.HomeDetailsViewModel
+@{
     ViewBag.Title = "Employee Details";
+    var photoPath = "~/Images/" + (Model.Employee.PhotoPath ?? "employee.png");
 }
 
 <div class="row justify-content-center m-3">
@@ -55,7 +56,7 @@
             </div>
 
             <div class="card-body text-center">
-                <img class="img-thumbnail" src="~/images/employee.png" height="500" width="500" />
+                <img class="img-thumbnail" src="@photoPath" asp-append-version="true" height="500" width="500" />
 
                 <h4>Employee ID : @Model.Employee.Id</h4>
                 <h4>Email : @Model.Employee.Email</h4>
