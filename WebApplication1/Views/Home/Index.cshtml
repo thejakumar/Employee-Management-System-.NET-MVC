@@ -10,7 +10,7 @@
 <div class="row">
     @foreach (var employee in Model)
     {
-        var defaultImagePath = Url.Content("~/Images/employee.png");
+        var defaultImagePath = Url.Content("/Images/employee.png");
         var photoPath = employee.PhotoPath != null ? Url.Content("~/Images/" + employee.PhotoPath) : defaultImagePath;
 
         <div class="col-md-4">
@@ -18,7 +18,6 @@
                 <div class="card-header">
                     <h3>@employee.Name</h3>
                 </div>
-                <div>Photo Path: @photoPath</div>
 
                 <img class="card-img-top" src="@photoPath" 
                 asp-append-version="true" height="250" width="75">

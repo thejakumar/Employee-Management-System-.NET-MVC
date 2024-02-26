@@ -21,7 +21,7 @@ namespace WebApplication1.Models
 
         public SubDept? SubDepartment { get; set; }
 
-        public string PhotoPath { get; set; }
+        public string? PhotoPath { get; set; }
 
 
     }

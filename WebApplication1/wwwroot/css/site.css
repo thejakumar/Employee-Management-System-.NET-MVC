@@ -63,6 +63,8 @@ body {
     }
 
 .card-img-top {
-    height: 200px;
-    width: auto;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+    border-radius:5px;
 }
